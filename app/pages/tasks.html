@@ -17,18 +17,40 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
             crossorigin="anonymous" defer></script>
     <script src="/scripts/components.js" defer></script>
-    <style>
-        .priority-high { background-color: #ff6b6b; color: white; }
-        .priority-medium { background-color: #feca57; color: white; }
-        .priority-low { background-color: #48dbfb; color: white; }
-    </style>
 </head>
 <body>
     <app-navbar></app-navbar>
     <main>
         <div class="container-fluid mt-5">
             <h1>Musicly Task Manager</h1>
-            <div class="input-wrapper">
+            <section class="task-analytics mt-5 text-center row mx-auto ms-auto">
+                <h2 class="mb-4">Analytics</h2>
+                <div class="col-md-2">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h5>Total Tasks</h5>
+                            <h3 id="totalTasks">0</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h5>Pending Tasks</h5>
+                            <h3 id="pendingTasks">0</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h5>Completed Tasks</h5>
+                            <h3 id="completedTasks">0</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="add-task">
                 <form id="task-form">
                     <div class="row">
                         <div class="col-md-4">
@@ -42,12 +64,10 @@
                         </div>
                     </div>
                 </form>
-                <ul id="task-list">
-                    <li class="task">
+            </section>
+            <section class="task-list">
 
-                    </li>
-                </ul>
-            </div>
+            </section>
         </div>    
     </main>
     <app-footer></app-footer>
