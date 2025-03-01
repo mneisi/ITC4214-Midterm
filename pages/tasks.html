@@ -17,9 +17,39 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
             crossorigin="anonymous" defer></script>
     <script src="/scripts/components.js" defer></script>
+    <style>
+        .priority-high { background-color: #ff6b6b; color: white; }
+        .priority-medium { background-color: #feca57; color: white; }
+        .priority-low { background-color: #48dbfb; color: white; }
+    </style>
 </head>
 <body>
     <app-navbar></app-navbar>
+    <main>
+        <div class="container-fluid mt-5">
+            <h1>Musicly Task Manager</h1>
+            <div class="input-wrapper">
+                <form id="task-form">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control mb-2" id="taskName" placeholder="Task Name" required>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control mb-2" id="taskDesc" placeholder="Description">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="date" class="form-control mb-2" id="taskDate" required>
+                        </div>
+                    </div>
+                </form>
+                <ul id="task-list">
+                    <li class="task">
+
+                    </li>
+                </ul>
+            </div>
+        </div>    
+    </main>
     <app-footer></app-footer>
 </body>
 </html>
