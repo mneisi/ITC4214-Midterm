@@ -1,0 +1,23 @@
+/* Activity Section Styles */
+#activity {
+    margin-top: 2rem;
+}
+
+.activity-item {
+    background-color: #fff;
+    transition: transform 0.2s;
+}
+
+.dark-mode .activity-item {
+    background-color: #2d2d2d;
+    border-color: #444 !important;
+}
+
+.activity-item:hover {
+    transform: translateX(5px);
+}
+
+/* Priority Badges */
+.badge.bg-danger { background-color: #dc3545 !important; }
+.badge.bg-warning { background-color: #ffc107 !important; color: #000; }
+.badge.bg-success { background-color: #28a745 !important; }

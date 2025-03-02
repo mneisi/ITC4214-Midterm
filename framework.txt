@@ -1,4 +1,0 @@
-Goal: Simplify Working With vanilla html & css, avoid repetitive work, make this project more fun (Front-end development is boring...)
-
-Idea: instead of rendering each page individually, create a single index page and have everything rendered on that page using javascript/jquery
-
