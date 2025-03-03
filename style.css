@@ -21,3 +21,81 @@
 .badge.bg-danger { background-color: #dc3545 !important; }
 .badge.bg-warning { background-color: #ffc107 !important; color: #000; }
 .badge.bg-success { background-color: #28a745 !important; }
+
+
+
+/* Tasks */
+.board {
+    display: flex;
+    overflow-x: auto;
+    min-height: 80vh;
+    padding: 1rem;
+    gap: 1rem;
+}
+.status-column {
+    min-width: 300px;
+    background: #ebecf0;
+    border-radius: 5px;
+    padding: 1rem;
+    position: relative;
+}
+.task-card {
+    background: white;
+    border-radius: 3px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    cursor: move;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+.add-task-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+}
+.status-header {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.delete-status-btn {
+    padding: 0 0.5rem;
+    cursor: pointer;
+    color: #dc3545;
+}
+
+.sortable-placeholder {
+    height: 80px;
+    background: rgba(0,0,0,0.1);
+    border: 2px dashed #666;
+    margin: 5px 0;
+}
+
+.dragging {
+    transform: rotate(3deg);
+    opacity: 0.7;
+    transition: transform 0.2s;
+}
+
+.task-list {
+    min-height: 100px;
+    transition: background 0.3s;
+}   
+.task-list.ui-sortable-helper {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.dark-mode .sortable-placeholder {
+    background: #3d3d3d;
+    border-color: #555;
+}
+
+.dark-mode .status-column { background: #2d2d2d; }
+.dark-mode .task-card { background: #373737; color: white; }
+.dark-mode .delete-status-btn { color: #ff6b6b; }
