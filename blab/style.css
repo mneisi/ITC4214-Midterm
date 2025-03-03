@@ -21,6 +21,10 @@
     --toggler-invert: 1;
 }
 
+a {
+    text-decoration: none;
+}
+
 .navbar {
     background-color: var(--card-bg) !important;
     color: var(--text-color) !important;

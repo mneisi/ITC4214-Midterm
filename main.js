@@ -1,33 +1,83 @@
-// Index.html
+/*
+Mostafa Neisi 
+ITC4214 - Internet Programming
+The American College of Greece
+Dr. Leonardos Mageiros
+*/
 
-// Function to display recent tasks in activity section
-function displayRecentTasks() {
-    const activitySection = document.getElementById('activity');
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    
-    // Sort tasks by creation date (newest first)
-    const recentTasks = tasks.sort((a, b) => b.id - a.id).slice(0, 5); // Show last 5 tasks
+// ================== Home & Dark Mode =================== //
+// Updated Dark Mode Script with event propagation
+document.addEventListener('DOMContentLoaded', () => {
 
-    // Create activity items
-    const activityHTML = recentTasks.map(task => `
-        <div class="activity-item mb-3 p-3 border rounded">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="mb-1">${task.name}</h5>
-                    <small class="text-muted">Due: ${task.dueDate}</small>
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    let isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+
+    function enableDarkMode(enable) {
+        isDarkMode = enable;
+        document.body.classList.toggle('dark-mode', enable);
+        darkModeToggle.textContent = enable ? 'Light Mode' : 'Dark Mode';
+        localStorage.setItem('darkMode', enable ? 'enabled' : 'disabled');
+        
+        // Update all dynamic content
+        updateThemeDependentElements();
+        displayRecentTasks();
+    }
+
+    // Initialize dark mode
+    enableDarkMode(isDarkMode);
+
+    darkModeToggle.addEventListener('click', () => {
+        enableDarkMode(!isDarkMode);
+    });
+
+    // Update elements that need theme-specific classes
+    function updateThemeDependentElements() {
+        // Update navbar theme
+        const navbar = document.querySelector('.navbar');
+        navbar.classList.toggle('navbar-dark', isDarkMode);
+        navbar.classList.toggle('navbar-light', !isDarkMode);
+    }
+
+    // Activity Display Function
+    function displayRecentTasks() {
+        const activitySection = document.getElementById('activity');
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        
+        const recentTasks = tasks.sort((a, b) => b.id - a.id).slice(0, 5);
+
+        const activityHTML = recentTasks.map(task => `
+            <div class="activity-item mb-3 p-3 border rounded">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1">${task.name}</h5>
+                        <small class="${isDarkMode ? 'text-muted-dark' : 'text-muted'}">
+                            Due: ${task.dueDate}
+                        </small>
+                    </div>
+                    <span class="badge ${getPriorityClass(task.priority)}">
+                        ${task.priority}
+                    </span>
                 </div>
-                <span class="badge bg-${getPriorityClass(task.priority)}">
-                    ${task.priority}
-                </span>
+                ${task.description ? `<p class="mt-2 mb-0">${task.description}</p>` : ''}
             </div>
-            ${task.description ? `<p class="mt-2 mb-0">${task.description}</p>` : ''}
-        </div>
-    `).join('');
+        `).join('');
 
-    activitySection.innerHTML = activityHTML || `<p class="text-muted">No recent activity</p>`;
-}
+        activitySection.innerHTML = activityHTML || 
+            `<p class="${isDarkMode ? 'text-muted-dark' : 'text-muted'}">No recent activity</p>`;
+    }
 
-// Helper function for priority classes (add this)
+    // Priority classes using theme context
+    function getPriorityClass(priority) {
+        switch(priority.toLowerCase()) {
+            case 'high': return 'bg-danger';
+            case 'medium': return isDarkMode ? 'bg-warning text-dark' : 'bg-warning';
+            case 'low': return 'bg-success';
+            default: return 'bg-secondary';
+        }
+    }
+});
+
+// ================== Tasks =================== //
 function getPriorityClass(priority) {
     return {
         'High': 'danger',
@@ -36,24 +86,6 @@ function getPriorityClass(priority) {
     }[priority] || 'secondary';
 }
 
-// Call this when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    displayRecentTasks();
-    
-    // Add event listener for dark mode toggle
-    document.getElementById('darkModeToggle').addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-    });
-
-    // Initialize dark mode
-    if (localStorage.getItem('darkMode') === 'true') {
-        document.body.classList.add('dark-mode');
-    }
-});
-
-
-// Task.html
 $(document).ready(function() {
     let statuses = JSON.parse(localStorage.getItem('statuses')) || ['To Do', 'In Progress', 'Done'];
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -271,21 +303,10 @@ $(document).ready(function() {
         saveData();
     });
 
-    // Dark Mode
-    $('#darkModeToggle').click(() => {
-        $('body').toggleClass('dark-mode');
-        localStorage.setItem('darkMode', $('body').hasClass('dark-mode'));
-    });
-
-    if (localStorage.getItem('darkMode') === 'true') {
-        $('body').addClass('dark-mode');
-    }
-
     // Helpers
     function updateStatusDropdown() {
         $('#taskStatus').empty();
         statuses.forEach(status => {
-            // Added proper escaping for status names with special characters
             $('#taskStatus').append($('<option>', {
                 value: status,
                 text: status
@@ -300,18 +321,6 @@ $(document).ready(function() {
         });
     }
 
-    // Modified updateTaskStatus function
-    function updateTaskStatus(taskId, newStatus) {
-        const task = tasks.find(t => t.id === taskId);
-        if (task) {
-            task.status = newStatus;
-            // Update the DOM element immediately
-            $(`.task-card[data-id="${taskId}"]`).data('status', newStatus);
-        }
-    }
-
-
-    // In your tasks.html script
     function saveData() {
         localStorage.setItem('tasks', JSON.stringify(tasks));
         localStorage.setItem('statuses', JSON.stringify(statuses));
@@ -332,3 +341,5 @@ $(document).ready(function() {
     // Initialization
     initBoard();
 });
+
+

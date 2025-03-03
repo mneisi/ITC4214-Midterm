@@ -1,34 +1,34 @@
 // Updated Dark Mode Script with event propagation
 document.addEventListener('DOMContentLoaded', () => {
 
-    // const darkModeToggle = document.getElementById('darkModeToggle');
-    // let isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    let isDarkMode = localStorage.getItem('darkMode') === 'enabled';
 
-    // function enableDarkMode(enable) {
-    //     isDarkMode = enable;
-    //     document.body.classList.toggle('dark-mode', enable);
-    //     darkModeToggle.textContent = enable ? 'Light Mode' : 'Dark Mode';
-    //     localStorage.setItem('darkMode', enable ? 'enabled' : 'disabled');
+    function enableDarkMode(enable) {
+        isDarkMode = enable;
+        document.body.classList.toggle('dark-mode', enable);
+        darkModeToggle.textContent = enable ? 'Light Mode' : 'Dark Mode';
+        localStorage.setItem('darkMode', enable ? 'enabled' : 'disabled');
         
-    //     // Update all dynamic content
-    //     updateThemeDependentElements();
-    //     displayRecentTasks();
-    // }
+        // Update all dynamic content
+        updateThemeDependentElements();
+        displayRecentTasks();
+    }
 
-    // // Initialize dark mode
-    // enableDarkMode(isDarkMode);
+    // Initialize dark mode
+    enableDarkMode(isDarkMode);
 
-    // darkModeToggle.addEventListener('click', () => {
-    //     enableDarkMode(!isDarkMode);
-    // });
+    darkModeToggle.addEventListener('click', () => {
+        enableDarkMode(!isDarkMode);
+    });
 
-    // // Update elements that need theme-specific classes
-    // function updateThemeDependentElements() {
-    //     // Update navbar theme
-    //     const navbar = document.querySelector('.navbar');
-    //     navbar.classList.toggle('navbar-dark', isDarkMode);
-    //     navbar.classList.toggle('navbar-light', !isDarkMode);
-    // }
+    // Update elements that need theme-specific classes
+    function updateThemeDependentElements() {
+        // Update navbar theme
+        const navbar = document.querySelector('.navbar');
+        navbar.classList.toggle('navbar-dark', isDarkMode);
+        navbar.classList.toggle('navbar-light', !isDarkMode);
+    }
 
     // Activity Display Function
     function displayRecentTasks() {

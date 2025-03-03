@@ -1,4 +1,137 @@
-/* Activity Section Styles */
+/* <<<<<<<Global>>>>>>>> */
+
+:root {
+    --primary-color: #6B73FF;
+    --secondary-color: #000DFF;
+    --bg-color: #ffffff;
+    --text-color: #2d3748;
+    --card-bg: #f8f9fa;
+}
+
+.dark-mode {
+    --bg-color: #1a202c;
+    --text-color: #ffffff;
+    --card-bg: #2d3748;
+    --navbar-bg: #2d3748;
+    --primary-color: #818bff;
+    --secondary-color: #667eea;
+    --muted-color: #a0aec0;
+    --border-color: #4a5568;
+
+    --toggler-invert: 1;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color) !important; 
+    transition: all 0.3s ease;
+}
+
+a {
+    text-decoration: none;
+}
+
+p, h1, h2, h3, h4, h5, h6, .text-muted, .navbar, .activity-item, .list-group-item {
+    color: var(--text-color) !important;
+}
+
+footer {
+    background: var(--card-bg);
+    padding: 30px 0;
+    margin-top: 50px;
+    border-radius: 20px;
+}
+
+/* NavBar */
+.navbar {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background-color: var(--card-bg) !important;
+}
+
+.navbar .nav-link {
+    color: var(--text-color) !important;
+}
+
+.navbar-brand {
+    color: var(--text-color) !important;
+}
+
+.navbar-toggler-icon {
+    filter: invert(var(--toggler-invert, 0));
+}
+
+/* Footer */
+
+.dark-mode .text-muted {
+    color: var(--muted-color) !important;
+}
+
+.social-links a {
+    color: var(--text-color);
+    margin: 0 10px;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+}
+
+
+/* ======== Home Page ======== */
+
+/* Hero Section */
+
+.hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 80px 30px !important;
+    border-radius: 20px;
+    margin-top: 20px;
+    transform: translateY(0);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.feature-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 25px;
+    margin: 15px;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-card i {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.cta-btn {
+    background: var(--primary-color);
+    color: white !important;
+    padding: 12px 30px;
+    border-radius: 25px;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(107, 115, 255, 0.4);
+    background-color: #000;
+}
+
+/* Activity Section */
 #activity {
     margin-top: 2rem;
 }
@@ -9,7 +142,7 @@
 }
 
 .dark-mode .activity-item {
-    background-color: #2d2d2d;
+    background-color: #2d3748;
     border-color: #444 !important;
 }
 
@@ -17,14 +150,13 @@
     transform: translateX(5px);
 }
 
-/* Priority Badges */
 .badge.bg-danger { background-color: #dc3545 !important; }
 .badge.bg-warning { background-color: #ffc107 !important; color: #000; }
 .badge.bg-success { background-color: #28a745 !important; }
 
 
+/* ======== Tasks Page ======== */
 
-/* Tasks */
 .board {
     display: flex;
     overflow-x: auto;
@@ -96,6 +228,19 @@
     border-color: #555;
 }
 
-.dark-mode .status-column { background: #2d2d2d; }
+.dark-mode .status-column { background: var(--card-bg); }
 .dark-mode .task-card { background: #373737; color: white; }
 .dark-mode .delete-status-btn { color: #ff6b6b; }
+
+
+/* ======== Songs Page ======== */
+
+.song-card {
+    margin-bottom: 20px;
+}
+
+#audioPlayer {
+    width: 100%;
+    margin-top: 20px;
+    display: none;
+}

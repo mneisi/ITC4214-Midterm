@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Song Manager</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="/js/darkmode.js"></script>
+  <style>
+    .song-card {
+      margin-bottom: 20px;
+    }
+    #audioPlayer {
+      width: 100%;
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+      <!-- Navigation Bar -->
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid w-75">
+            <a class="navbar-brand fw-bold" href="#">Musicly</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tasks.html">Tasks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="songs.html">Songs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="report.html">Project Report</a>
+                    </li>
+                </ul>
+                <button class="btn btn-sm ms-2 cta-btn" id="darkModeToggle">Dark Mode</button>
+            </div>
+        </div>
+    </nav>
+  <div class="container my-5">
+    <h1 class="mb-4">Song Manager</h1>
+    <!-- File Upload -->
+    <div class="mb-4">
+      <label for="songUpload" class="form-label">Upload Songs</label>
+      <input type="file" id="songUpload" class="form-control" multiple accept="audio/*">
+    </div>
+
+    <!-- Search Function -->
+    <div class="mb-4">
+      <input type="text" id="songSearch" class="form-control" placeholder="Search songs...">
+    </div>
+
+    <!-- Song List -->
+    <div id="songList" class="row row-cols-1 row-cols-md-2 g-4">
+      <!-- Dynamically inserted song cards will appear here -->
+    </div>
+
+    <!-- Audio Player -->
+    <audio id="audioPlayer" controls></audio>
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeo+CZ8t3g8A5IBy6JNVae4la0RyQeSko0R7GmYkn4R8GD30"
+    crossorigin="anonymous"
+  ></script>
+  
+  <script>
+    // Array to hold song objects
+    let songs = [];
+    const songUpload = document.getElementById('songUpload');
+    const songList = document.getElementById('songList');
+    const songSearch = document.getElementById('songSearch');
+    const audioPlayer = document.getElementById('audioPlayer');
+    
+    // When songs are uploaded, create song objects with an Object URL
+    songUpload.addEventListener('change', (e) => {
+      const files = Array.from(e.target.files);
+      files.forEach(file => {
+        const songObj = {
+          name: file.name,
+          file: file,
+          url: URL.createObjectURL(file)
+        };
+        songs.push(songObj);
+      });
+      renderSongs();
+    });
+    
+    // Render the songs list with optional filtering
+    function renderSongs(filter = '') {
+      songList.innerHTML = '';
+      const filteredSongs = songs.filter(song =>
+        song.name.toLowerCase().includes(filter.toLowerCase())
+      );
+      filteredSongs.forEach((song, index) => {
+        // Create a card for each song
+        const col = document.createElement('div');
+        col.className = 'col';
+        col.innerHTML = `
+          <div class="card song-card">
+            <div class="card-body">
+              <h5 class="card-title">${song.name}</h5>
+              <button class="btn btn-primary play-btn" data-index="${index}">
+                <i class="fas fa-play"></i> Play
+              </button>
+            </div>
+          </div>
+        `;
+        songList.appendChild(col);
+      });
+      
+      // Add click events to the play buttons
+      document.querySelectorAll('.play-btn').forEach(button => {
+        button.addEventListener('click', function() {
+          // Use the data-index attribute to get the correct song object
+          const index = this.getAttribute('data-index');
+          // Find the song in the filtered list (to match the displayed order)
+          const songToPlay = filteredSongs[index];
+          playSong(songToPlay.url);
+        });
+      });
+    }
+    
+    // Listen for search input and re-render the songs list
+    songSearch.addEventListener('input', (e) => {
+      renderSongs(e.target.value);
+    });
+    
+    // Play the selected song using the HTML5 audio element
+    function playSong(url) {
+      audioPlayer.src = url;
+      audioPlayer.style.display = 'block';
+      audioPlayer.play();
+    }
+  </script>
+</body>
+</html>
