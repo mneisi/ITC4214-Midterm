@@ -31,7 +31,7 @@ Dr. Leonardos Mageiros
 </head>
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container-fluid w-75">
             <a class="navbar-brand fw-bold" href="index.html">Musicly</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -67,6 +67,27 @@ Dr. Leonardos Mageiros
         <button class="btn btn-success btn-sm" id="addStatusBtn">Add New Status</button>
     </div>
 
+    <!-- Summary Section -->
+    <div class="container-fluid mt-3">
+        <div class="row">
+        <div class="col-md-4">
+            <div class="alert alert-info text-center">
+            Total Tasks: <span id="totalTasks">0</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-warning text-center">
+            Pending Tasks: <span id="pendingTasks">0</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-success text-center">
+            Completed Tasks: <span id="completedTasks">0</span>
+            </div>
+        </div>
+        </div>
+    </div>
+    
     <div class="container-fluid">
         <div class="board" id="taskBoard"></div>
     </div>

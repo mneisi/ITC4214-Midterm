@@ -160,7 +160,7 @@ footer {
 .board {
     display: flex;
     overflow-x: auto;
-    min-height: 80vh;
+    min-height: 60vh;
     padding: 1rem;
     gap: 1rem;
 }

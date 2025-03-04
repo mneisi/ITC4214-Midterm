@@ -5,6 +5,19 @@ The American College of Greece
 Dr. Leonardos Mageiros
 */
 
+
+
+// Priority classes using theme context
+function getPriorityClass(priority) {
+    var currentDark = $('body').hasClass('dark-mode');
+    switch (priority.toLowerCase()) {
+        case 'high': return 'bg-danger';
+        case 'medium': return currentDark ? 'bg-warning text-dark' : 'bg-warning';
+        case 'low': return 'bg-success';
+        default: return 'bg-secondary';
+    }
+}
+
 // ================== Home & Dark Mode =================== //
 
 $(document).ready(function() {
@@ -25,14 +38,10 @@ $(document).ready(function() {
         $darkModeToggle.text(newMode ? 'Light Mode' : 'Dark Mode');
         
         updateDarkModeButton();
-        displayRecentTasks();
       });
     }
-    
-    // Always initialize displayRecentTasks on page load
     displayRecentTasks();
     
-    // Update elements that need theme-specific classes
     function updateDarkModeButton() {
       var $navbar = $('.navbar');
       $navbar.removeClass('navbar-dark navbar-light');
@@ -80,28 +89,8 @@ $(document).ready(function() {
       $activitySection.html(activityHTML);
     }
     
-    // Priority classes using theme context
-    function getPriorityClass(priority) {
-      var currentDark = $('body').hasClass('dark-mode');
-      switch (priority.toLowerCase()) {
-        case 'high': return 'bg-danger';
-        case 'medium': return currentDark ? 'bg-warning text-dark' : 'bg-warning';
-        case 'low': return 'bg-success';
-        default: return 'bg-secondary';
-      }
-    }
-  });  
+    // ================== Tasks =================== //
 
-// ================== Tasks =================== //
-function getPriorityClass(priority) {
-    return {
-        'High': 'danger',
-        'Medium': 'warning',
-        'Low': 'success'
-    }[priority] || 'secondary';
-}
-
-$(document).ready(function() {
     let statuses = JSON.parse(localStorage.getItem('statuses')) || ['To Do', 'In Progress', 'Done'];
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     let currentEditId = null;
@@ -113,6 +102,7 @@ $(document).ready(function() {
         loadTasks();
         initSortable();
         updateStatusDropdown();
+        updateSummary(); // Refresh summary counts on board initialization
     }
 
     function createStatusColumn(status) {
@@ -152,21 +142,20 @@ $(document).ready(function() {
             receive: function(event, ui) {
                 const newStatus = $(this).data('status');
                 const taskId = ui.item.data('id');
-                
+
                 // Update data model
                 const task = tasks.find(t => t.id === taskId);
                 if (task) {
                     task.status = newStatus;
                     saveData();
                 }
-                
+
                 // Update DOM attributes
                 ui.item.attr('data-status', newStatus);
                 $(this).sortable('refresh');
             }
         }).disableSelection();
     }
-
 
     function loadTasks() {
         tasks.forEach(task => {
@@ -181,7 +170,7 @@ $(document).ready(function() {
                 <h6>${task.name}</h6>
                 ${task.description ? `<p class="small">${task.description}</p>` : ''}
                 <div class="d-flex justify-content-between align-items-center">
-                    <span class="badge bg-${getPriorityClass(task.priority)}">${task.priority}</span>
+                    <span class="badge bg-${getPriorityClass(task.priority)} text-muted">${task.priority}</span>
                     <small>${task.dueDate}</small>
                 </div>
                 <div class="mt-2">
@@ -192,14 +181,6 @@ $(document).ready(function() {
         `);
         card.data('status', task.status);
         return card;
-    }
-
-    function getPriorityClass(priority) {
-        return {
-            'High': 'danger',
-            'Medium': 'warning',
-            'Low': 'success'
-        }[priority];
     }
 
     // Task Form Handling
@@ -259,12 +240,12 @@ $(document).ready(function() {
     $('#statusForm').submit(function(e) {
         e.preventDefault();
         const newStatus = $('#statusName').val().trim();
-        
+
         if (!newStatus) {
             alert('Please enter a status name');
             return;
         }
-        
+
         if (statuses.includes(newStatus)) {
             alert('Status already exists');
             return;
@@ -301,7 +282,7 @@ $(document).ready(function() {
     $(document).on('click', '.edit-btn', function() {
         const taskId = $(this).closest('.task-card').data('id');
         const task = tasks.find(t => t.id === taskId);
-        
+
         $('#taskName').val(task.name);
         $('#taskDescription').val(task.description);
         $('#dueDate').val(task.dueDate);
@@ -336,12 +317,21 @@ $(document).ready(function() {
         });
     }
 
+    function updateSummary() {
+        let total = tasks.length;
+        let completed = tasks.filter(task => task.status === 'Done').length;
+        let pending = total - completed;
+        $('#totalTasks').text(total);
+        $('#pendingTasks').text(pending);
+        $('#completedTasks').text(completed);
+    }
+
     function saveData() {
         localStorage.setItem('tasks', JSON.stringify(tasks));
         localStorage.setItem('statuses', JSON.stringify(statuses));
         updateColumnCounts();
         $('.task-list').sortable('refresh');
-        
+        updateSummary(); // Update summary counts on each save
         // Update activity feed on index.html
         if (typeof displayRecentTasks === 'function') {
             displayRecentTasks();
@@ -355,6 +345,88 @@ $(document).ready(function() {
 
     // Initialization
     initBoard();
+
+
+    // ================== Contact =================== //
+
+    $("#contactForm").submit(function(event) {
+        event.preventDefault();
+        alert("Message sent successfully!");
+        this.reset();
+    });
+  });  
+
+
+// ================== Songs (jQuery Version) =================== //
+$(document).ready(function() {
+    // Array to hold song objects
+    var songs = [];
+    var $songUpload = $('#songUpload');
+    var $songList = $('#songList');
+    var $songSearch = $('#songSearch');
+    var $audioPlayer = $('#audioPlayer');
+
+    // When songs are uploaded, create song objects with an Object URL
+    $songUpload.on('change', function(e) {
+        var files = Array.from(e.target.files);
+        $.each(files, function(index, file) {
+            var songObj = {
+                name: file.name,
+                file: file,
+                url: URL.createObjectURL(file)
+            };
+            songs.push(songObj);
+        });
+        renderSongs();
+    });
+
+    // Render the songs list with optional filtering
+    function renderSongs(filter) {
+        filter = filter || '';
+        $songList.empty();
+        var filteredSongs = songs.filter(function(song) {
+            return song.name.toLowerCase().includes(filter.toLowerCase());
+        });
+
+        $.each(filteredSongs, function(index, song) {
+            var col = $('<div class="col"></div>');
+            var cardHTML = `
+                <div class="card song-card">
+                    <div class="card-body">
+                        <h5 class="card-title">${song.name}</h5>
+                        <button class="btn btn-primary play-btn" data-index="${index}">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                    </div>
+                </div>
+            `;
+            col.html(cardHTML);
+            $songList.append(col);
+        });
+
+        // Remove previous handlers then add click events to the play buttons
+        $('.play-btn').off('click').on('click', function() {
+            var index = $(this).data('index');
+            var songToPlay = filteredSongs[index];
+            playSong(songToPlay.url);
+        });
+    }
+
+    // Listen for search input and re-render the songs list
+    $songSearch.on('input', function() {
+        renderSongs($(this).val());
+    });
+
+    // Play the selected song using the HTML5 audio element
+    function playSong(url) {
+        $audioPlayer.attr('src', url);
+        $audioPlayer.show();
+        $audioPlayer[0].play();
+    }
 });
+
+
+
+
 
 
