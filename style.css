@@ -232,8 +232,36 @@ footer {
 .dark-mode .task-card { background: #373737; color: white; }
 .dark-mode .delete-status-btn { color: #ff6b6b; }
 
+.dark-mode .modal-content {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+}
+
+.dark-mode .modal-header,
+.dark-mode .modal-body,
+.dark-mode .modal-footer {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+}
+
+.dark-mode .modal-title {
+    color: var(--text-color) !important;
+}
+
+.dark-mode .form-control,
+.dark-mode .form-select {
+    background-color: #4a5568;
+    color: #ffffff;
+    border: 1px solid var(--border-color);
+}
+  
+
 
 /* ======== Songs Page ======== */
+
+.songs-container {
+    min-height: 50vh;
+}
 
 .song-card {
     margin-bottom: 20px;
@@ -244,3 +272,122 @@ footer {
     margin-top: 20px;
     display: none;
 }
+
+/* Dark mode styling for Song Manager page */
+.dark-mode .songs-container {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.dark-mode .songs-container .form-label {
+    color: var(--text-color);
+}
+
+.dark-mode .songs-container .form-control {
+    background-color: #4a5568;
+    color: #ffffff;
+    border: 1px solid var(--border-color);
+}
+
+.dark-mode .songs-container #songSearch {
+    background-color: #4a5568;
+    color: #ffffff;
+    border: 1px solid var(--border-color);
+}
+
+.dark-mode .songs-container #songList .card {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+.dark-mode .songs-container audio {
+    background-color: #4a5568;
+    color: var(--text-color);
+}
+  
+
+/* ======== About Page ======== */
+.team-div img {
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover;
+}
+
+.carousel-control-prev span,
+.carousel-control-next span {
+ color: var(--text-color);
+}
+
+
+.dark-mode .team-div {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color);
+}
+
+
+.dark-mode .team-div .card-title,
+.dark-mode .team-div .card-text {
+    color: var(--text-color) !important;
+}
+
+
+.dark-mode .carousel-inner .carousel-item > div {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+}
+
+.dark-mode .carousel-control-prev span,
+.dark-mode .carousel-control-next span {
+    color: var(--text-color) !important;
+}
+
+/* ======== Contact Page ======== */
+
+.contact-form {
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+.btn-custom {
+    background-color: #007bff;
+    color: var(--text-color);
+    transition: 0.3s ease;
+}
+.btn-custom:hover {
+    background-color: #0056b3;
+}
+
+.dark-mode .contact-form {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.dark-mode .contact-form .form-label {
+    color: var(--text-color) !important;
+}
+
+.dark-mode .contact-form .form-control {
+    background-color: #4a5568 !important;
+    color: #ffffff !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+.dark-mode .contact-form textarea.form-control {
+    background-color: #4a5568 !important;
+    color: #ffffff !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+.dark-mode .contact-form .btn-custom {
+    background-color: var(--primary-color) !important;
+    border: none !important;
+    color: #ffffff !important;
+}
+  
+  
