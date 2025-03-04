@@ -5,7 +5,6 @@ The American College of Greece
 Dr. Leonardos Mageiros
 -->
 
-
 <!-- Home Page -->
 <!DOCTYPE html>
 <html lang="en">
@@ -62,6 +61,32 @@ Dr. Leonardos Mageiros
         </div>
     </nav>
 
+    <div class="container-fluid w-75 text-center mt-5">
+        <h3>ITC4214 - Internet Programming | Mid-Term Project</h3>
+        <h4>
+            Mostafa Neisi <br>
+            The American College of Greece <br>
+            Dr. Leonardos Mageiros <br>
+        </h4>
+    </div>
+    <div class="container-fluid w-75 mt-5">
+        <p>
+            <strong>Description</strong><br>
+            My task management system is inspired by the software Trello, which uses cards and columns for each task and these cards are able to be moved to different columns in order to change the status of the task. <br><br>
+
+            <strong>Coding Decisions</strong><br>
+            I created the tasks page by first creating columns with the name of the status that the task has, so each column would be a status by itself, and moving the tasks around would change the status of the task and when a task is moved to the "Done" status which is keyword specified, it is marked as completed. New columns/statuses can be created by a button called "Add new Status" and are saved in an array in local storage. The tasks are represented as cards and they are created by clicking the + button on the tasks page. each task gets its own ID and is also saved in an array in local storage. 
+            The Latest Activity section in the home page grabs the array from local storage and uses the id of these tasks and then sorts and displays them on the home page. <br>
+            Since I went with the music theme for the website, I decided to create a music library and player for my personal page. there is a upload functionality which is a basic HTML input tag which makes sure that it is a audio file, the uploaded songs get stored in a JS array and then rendered to the page, there is a basic search functionality which uses the JavaScript includes() method to search for the name of the song and only show the songs with that name, lastly I have also implemented a basic HTML5 player to play a song if the play button is clicked. <br><br>
+
+            <strong>Challenges</strong><br>
+            I made a lot of decision making mistakes during the coding process, which made me waste a lot of time that I didn't have. Firstly I tried to create custom components for some of the repetitive HTML code such has the navigation bar and the footer, I managed to successfully create these components and integrate them in my code, next I wanted to do the same thing for the head tag of my HTML pages, but then while doing so I realized that the way I was implementing the components, they would only render once on the page and never be used by the DOM again, which meant that I wouldn't be able to create a component for my head tag, because the styles and scripts would not be used unless I added a lot of DOM manipulation code which I was not prepared nor had the knowledge of how to do. Next I came up with the idea of creating a framework like architecture, where I would have one index file with the same head, navbar and footer and only the body would be dynamically rendered using JavaScript, which at the time would seem like a really good idea and was going to work, but in the middle of creating that framework I realized that I only have some basic structure and code for the actual project and seeing that I only had 2 days left, I decided to completely scrap the framework concept and just complete the project using default html and jQuery
+            Reflecting back, these timeline problems were due to a lot of time wasted thinking about how I am going to study and complete my midterm projects with such tight and close timelines together instead of actually starting doing the work. I still think that the framework concept is a really good Idea and would like to complete it one day, also now see how frameworks like React are built and understand their concept. <br><br>
+
+
+            <strong>Github Link:</strong> <a href="https://github.com/mneisi/ITC4214-Midterm" target="_blank">https://github.com/mneisi/ITC4214-Midterm</a> <br><br>
+        </p>
+    </div>
 
     <footer class="container-fluid w-75 text-center">
         <div class="social-links mb-3">

@@ -6,7 +6,6 @@ Dr. Leonardos Mageiros
 */
 
 
-
 // Priority classes using theme context
 function getPriorityClass(priority) {
     var currentDark = $('body').hasClass('dark-mode');
@@ -102,7 +101,7 @@ $(document).ready(function() {
         loadTasks();
         initSortable();
         updateStatusDropdown();
-        updateSummary(); // Refresh summary counts on board initialization
+        updateSummary();
     }
 
     function createStatusColumn(status) {
@@ -347,7 +346,7 @@ $(document).ready(function() {
     initBoard();
 
 
-    // ================== Contact =================== //
+// ================== Contact =================== //
 
     $("#contactForm").submit(function(event) {
         event.preventDefault();
@@ -357,7 +356,7 @@ $(document).ready(function() {
   });  
 
 
-// ================== Songs (jQuery Version) =================== //
+// ================== Songs =================== //
 $(document).ready(function() {
     // Array to hold song objects
     var songs = [];

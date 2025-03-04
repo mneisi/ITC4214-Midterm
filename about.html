@@ -76,7 +76,6 @@ Dr. Leonardos Mageiros
   <section class="container my-5">
     <h2 class="mb-4">Our Team</h2>
     <div class="row row-cols-1 row-cols-md-3 g-4">
-      <!-- Team Member 1 -->
       <div class="col">
         <div class="card h-100 text-center team-div">
           <img src="/images/icon.jpg" class="card-img-top rounded-circle mx-auto mt-3" alt="Mostafa Neisi">
@@ -86,7 +85,6 @@ Dr. Leonardos Mageiros
           </div>
         </div>
       </div>
-      <!-- Team Member 2 -->
       <div class="col">
         <div class="card h-100 text-center team-div">
           <img src="/images/icon.jpg" class="card-img-top rounded-circle mx-auto mt-3" alt="Mostafa Neisi">
@@ -96,7 +94,6 @@ Dr. Leonardos Mageiros
           </div>
         </div>
       </div>
-      <!-- Team Member 3 -->
       <div class="col">
         <div class="card h-100 text-center team-div">
           <img src="/images/icon.jpg" class="card-img-top rounded-circle mx-auto mt-3" alt="Mostafa Neisi">
@@ -153,30 +150,13 @@ Dr. Leonardos Mageiros
     </div>
   </section>
 
-  <!-- Sorting Functionality Script -->
-  <script>
-    function sortTasks(criteria) {
-      const table = document.getElementById('tasksTable').getElementsByTagName('tbody')[0];
-      let rows = Array.from(table.rows);
-      rows.sort((a, b) => {
-        const valA = a.cells[criteria === 'name' ? 0 : 1].textContent.trim();
-        const valB = b.cells[criteria === 'name' ? 0 : 1].textContent.trim();
-        if (criteria === 'dueDate') {
-          return new Date(valA) - new Date(valB);
-        }
-        return valA.localeCompare(valB);
-      });
-      rows.forEach(row => table.appendChild(row));
-    }
-  </script>
-
-    <footer class="container-fluid w-75 text-center">
-        <div class="social-links mb-3">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-        <p class="text-muted small">&copy; 2025 Musicly. All Rights Reserved.</p>
-    </footer>
+  <footer class="container-fluid w-75 text-center">
+      <div class="social-links mb-3">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p class="text-muted small">&copy; 2025 Musicly. All Rights Reserved.</p>
+  </footer>
 </body>
 </html>
